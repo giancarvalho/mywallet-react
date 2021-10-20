@@ -21,12 +21,16 @@ export default function MyWallet() {
                 </TitleContainer>
                 <RecordsDisplay />
                 <EntriesButtonContainer>
-                    <EntriesButton onClick={() => history.push("/income")}>
+                    <EntriesButton
+                        onClick={() => history.push("/new-entry/income")}
+                    >
                         <AiOutlinePlusCircle />
                         New Income
                     </EntriesButton>
 
-                    <EntriesButton onClick={() => history.push("/expense")}>
+                    <EntriesButton
+                        onClick={() => history.push("/new-entry/expense")}
+                    >
                         <AiOutlineMinusCircle />
                         New Expense
                     </EntriesButton>

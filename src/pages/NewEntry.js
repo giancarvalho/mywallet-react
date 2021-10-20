@@ -1,16 +1,19 @@
 import { useState } from "react";
+import { useParams } from "react-router";
 import styled from "styled-components";
 import Button from "../components/_shared/Button";
 import { PageContainer } from "../components/_shared/containers";
 import Input from "../components/_shared/Input";
 import Title from "../components/_shared/Title";
 
-export default function Income() {
+export default function NewEntry() {
     const [disabled, setDisabled] = useState(false);
     const [amount, setAmount] = useState("");
     const [description, setDescription] = useState("");
 
-    function createIncome(e) {
+    const { type: typeName } = useParams();
+
+    function createEntry(e) {
         e.preventDefault();
         console.log(`the amount is ${amount} for ${description}`);
         setDisabled(true);
@@ -23,8 +26,10 @@ export default function Income() {
     return (
         <PageContainer>
             <InnerWrap>
-                <Title>New Income</Title>
-                <form onSubmit={createIncome}>
+                <Title>
+                    New <Type>{typeName}</Type>
+                </Title>
+                <form onSubmit={createEntry}>
                     <fieldset disabled={disabled}>
                         <Input
                             type="number"
@@ -51,4 +56,8 @@ const InnerWrap = styled.div`
     button {
         background-color: #a328d6;
     }
+`;
+
+const Type = styled.span`
+    text-transform: capitalize;
 `;
