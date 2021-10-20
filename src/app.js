@@ -5,6 +5,7 @@ import "./assets/css/global.css";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import MyWallet from "./pages/MyWallet";
+import Income from "./pages/Income";
 
 function App() {
     return (
@@ -18,6 +19,12 @@ function App() {
                 </Route>
                 <Route path={routes.mywallet} exact>
                     <MyWallet />
+                </Route>
+                <Route path={routes.income} exact>
+                    <Income />
+                </Route>
+                <Route path={routes.expense} exact>
+                    {/* Expense Component */}
                 </Route>
             </Switch>
         </Router>
