@@ -1,0 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&family=Saira+Stencil+One&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Saira+Stencil+One&display=swap");
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+    font-family: "Raleway", sans-serif;
+    min-height: 100vh !important;
+    height: 100vh;
+}
+
+a {
+    text-decoration: none;
+}
