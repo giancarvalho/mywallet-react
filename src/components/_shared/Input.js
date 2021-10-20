@@ -8,7 +8,8 @@ const Input = styled.input`
     margin-bottom: 8px;
     border-radius: 5px;
     padding: 5px;
-    border: none;
+    background: ${({ alert }) => (alert ? "#ffbfbf" : "#fff")};
+    border: ${({ alert }) => (alert ? "1px solid #f52323" : "none")};
 
     &:focus {
         outline: none;
