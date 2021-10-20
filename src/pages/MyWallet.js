@@ -5,8 +5,11 @@ import { AiOutlinePlusCircle, AiOutlineMinusCircle } from "react-icons/ai";
 import ActionButton from "../components/_shared/ActionButton";
 import RecordsDisplay from "../components/RecordsDisplay";
 import Title from "../components/_shared/Title";
-
+import { Link } from "react-router-dom";
+import { useHistory } from "react-router";
 export default function MyWallet() {
+    const history = useHistory();
+
     return (
         <PageContainer>
             <InnerWrapper>
@@ -18,11 +21,12 @@ export default function MyWallet() {
                 </TitleContainer>
                 <RecordsDisplay />
                 <EntriesButtonContainer>
-                    <EntriesButton>
+                    <EntriesButton onClick={() => history.push("/income")}>
                         <AiOutlinePlusCircle />
                         New Income
                     </EntriesButton>
-                    <EntriesButton>
+
+                    <EntriesButton onClick={() => history.push("/expense")}>
                         <AiOutlineMinusCircle />
                         New Expense
                     </EntriesButton>

@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
 const Input = styled.input`
+    font-family: Railway;
     width: 100%;
     height: 45px;
     color: #000;
-    font-size: 14px;
+    font-size: 17px;
     margin-bottom: 8px;
     border-radius: 5px;
     padding: 5px;
