@@ -30,7 +30,7 @@ export default function RecordsDisplay() {
             {records.length > 0 ? (
                 <Records />
             ) : (
-                <p>No income or expense records yet</p>
+                <p>No income or expense entries yet</p>
             )}
         </RecordsContainer>
     );

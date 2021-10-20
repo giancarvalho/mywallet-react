@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Input = styled.input`
-    font-family: Railway;
+    font-family: Railway, cursive;
     width: 100%;
     height: 45px;
     color: #000;
@@ -17,7 +17,7 @@ const Input = styled.input`
     }
 
     &::placeholder {
-        color: #000;
+        color: #868686;
     }
 `;
 

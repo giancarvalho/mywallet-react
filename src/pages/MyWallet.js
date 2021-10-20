@@ -5,7 +5,6 @@ import { AiOutlinePlusCircle, AiOutlineMinusCircle } from "react-icons/ai";
 import ActionButton from "../components/_shared/ActionButton";
 import RecordsDisplay from "../components/RecordsDisplay";
 import Title from "../components/_shared/Title";
-import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
 export default function MyWallet() {
     const history = useHistory();
