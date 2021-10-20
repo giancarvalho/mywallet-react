@@ -4,6 +4,8 @@ import "./assets/css/reset.css";
 import "./assets/css/global.css";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
+import MyWallet from "./pages/MyWallet";
+
 function App() {
     return (
         <Router>
@@ -14,8 +16,8 @@ function App() {
                 <Route path={routes.signUp} exact>
                     <SignUp />
                 </Route>
-                <Route path={routes.home} exact>
-                    {/* home */}
+                <Route path={routes.mywallet} exact>
+                    <MyWallet />
                 </Route>
             </Switch>
         </Router>

@@ -17,7 +17,7 @@ export default function SignUp() {
         email: "",
         password: "",
     });
-    const [confirmPassword, setConfirmPassword] = useState(null);
+    const [confirmPassword, setConfirmPassword] = useState("");
     const [alertMismatch, setAlertMismatch] = useState(false);
 
     function signUp(e) {

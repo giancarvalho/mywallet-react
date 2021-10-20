@@ -4,7 +4,14 @@ const PageContainer = styled.div`
     display: flex;
     min-width: 100vw;
     min-height: 100%;
-    background-color: #8c25be;
+    background: rgb(131, 40, 214);
+    background: linear-gradient(
+        180deg,
+        rgba(131, 40, 214, 1) 0%,
+        rgba(163, 40, 214, 1) 75%,
+        rgba(184, 40, 214, 1) 100%
+    );
+
     padding: 24px;
 `;
 

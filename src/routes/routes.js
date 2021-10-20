@@ -1,7 +1,7 @@
 const routes = {
     signIn: "/",
     signUp: "/sign-up",
-    home: "/home",
+    mywallet: "/mywallet",
 };
 
 export default routes;

@@ -11,8 +11,8 @@ import Logo from "../components/Logo";
 
 export default function SignIn() {
     const [disabled, setDisabled] = useState(false);
-    const [email, setEmail] = useState(null);
-    const [password, setPassword] = useState(null);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
     function login(e) {
         e.preventDefault();
