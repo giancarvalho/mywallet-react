@@ -8,23 +8,34 @@ import {
 import Input from "../components/_shared/Input";
 import Button from "../components/_shared/Button";
 import Logo from "../components/Logo";
+import { authenticateUser } from "../services/apiRequests";
+import { useHistory } from "react-router";
 
 export default function SignIn() {
     const [disabled, setDisabled] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const history = useHistory();
 
-    function login(e) {
+    function signIn(e) {
         e.preventDefault();
         setDisabled(true);
-        //submit to the api
+
+        authenticateUser({ email, password })
+            .then((response) => {
+                history.push("/mywallet");
+            })
+            .catch((error) => {
+                alert(error.response.data);
+                setDisabled(false);
+            });
     }
 
     return (
         <PageContainer>
             <ContentContainer>
                 <Logo />
-                <form onSubmit={login}>
+                <form onSubmit={signIn}>
                     <fieldset disabled={disabled}>
                         <Input
                             placeholder="E-mail"
@@ -32,12 +43,15 @@ export default function SignIn() {
                             value={email}
                         />
                         <Input
+                            type="password"
                             placeholder="Password"
                             onChange={(e) => setPassword(e.target.value)}
                             value={password}
                         />
 
-                        <Button disabled={disabled}>Sign In</Button>
+                        <Button disabled={disabled} dark>
+                            Sign In
+                        </Button>
                     </fieldset>
                 </form>
                 <Link to={routes.signUp}>First time? Sign up!</Link>

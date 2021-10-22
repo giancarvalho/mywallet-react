@@ -9,6 +9,8 @@ import Input from "../components/_shared/Input";
 import Button from "../components/_shared/Button";
 import Logo from "../components/Logo";
 import styled from "styled-components";
+import { createUser } from "../services/apiRequests";
+import { useHistory } from "react-router";
 
 export default function SignUp() {
     const [disabled, setDisabled] = useState(false);
@@ -19,9 +21,11 @@ export default function SignUp() {
     });
     const [confirmPassword, setConfirmPassword] = useState("");
     const [alertMismatch, setAlertMismatch] = useState(false);
+    const history = useHistory();
 
     function signUp(e) {
         e.preventDefault();
+        setDisabled(true);
 
         if (confirmPassword !== newUser.password) {
             setAlertMismatch(true);
@@ -29,9 +33,14 @@ export default function SignUp() {
             return;
         }
 
-        console.log(newUser);
-
-        setDisabled(true);
+        createUser(newUser)
+            .then(() => history.push("/sign-in"))
+            .catch((error) => {
+                setDisabled(false);
+                alert(
+                    "It wasn't possible to create your account. Please, try again."
+                );
+            });
     }
 
     return (
@@ -88,7 +97,9 @@ export default function SignUp() {
                             required
                         />
 
-                        <Button disabled={disabled}>Sign Up</Button>
+                        <Button disabled={disabled} dark>
+                            Sign Up
+                        </Button>
                     </fieldset>
                 </form>
                 <Link to={routes.signIn}>
