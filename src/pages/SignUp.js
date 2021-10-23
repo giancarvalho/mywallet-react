@@ -97,9 +97,7 @@ export default function SignUp() {
                             required
                         />
 
-                        <Button disabled={disabled} dark>
-                            Sign Up
-                        </Button>
+                        <Button disabled={disabled}>Sign Up</Button>
                     </fieldset>
                 </form>
                 <Link to={routes.signIn}>

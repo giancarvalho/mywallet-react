@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 //pass dark property to get the dark button theme
 const Button = styled.button`
-    background-color: ${({ dark }) => (dark ? "#7509a3" : "#9d09dd")};
+    background-color: #7509a3;
     color: #fff;
     font-weight: 700;
     font-size: 18px;

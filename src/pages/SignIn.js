@@ -49,9 +49,7 @@ export default function SignIn() {
                             value={password}
                         />
 
-                        <Button disabled={disabled} dark>
-                            Sign In
-                        </Button>
+                        <Button disabled={disabled}>Sign In</Button>
                     </fieldset>
                 </form>
                 <Link to={routes.signUp}>First time? Sign up!</Link>

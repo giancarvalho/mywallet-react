@@ -61,7 +61,7 @@ const EntriesButton = styled.div`
     height: 100%;
     width: 48%;
     border-radius: 5px;
-    background-color: #9e18d8;
+    background-color: #7509a3;
     color: #fff;
     font-weight: 700;
     font-size: 15px;

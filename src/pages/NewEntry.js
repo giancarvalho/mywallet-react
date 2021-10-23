@@ -52,11 +52,7 @@ export default function NewEntry() {
     );
 }
 
-const InnerWrap = styled.div`
-    button {
-        background-color: #a328d6;
-    }
-`;
+const InnerWrap = styled.div``;
 
 const Type = styled.span`
     text-transform: capitalize;
