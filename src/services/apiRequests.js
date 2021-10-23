@@ -17,7 +17,6 @@ function authenticateUser(userData) {
 }
 
 function getEntries(token) {
-    console.log(createBearerAuth(token));
     return axiosBase.get("/entries", createBearerAuth(token));
 }
 

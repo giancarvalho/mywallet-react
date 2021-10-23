@@ -43,7 +43,7 @@ export default function SignIn() {
             .then((response) => {
                 storeUser(response.data);
                 setUser(response.data);
-                history.push("/mywallet");
+                history.push(routes.mywallet);
             })
             .catch((error) => {
                 alert(error.response.data);

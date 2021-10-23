@@ -7,7 +7,7 @@ import Input from "../components/_shared/Input";
 import Title from "../components/_shared/Title";
 import { createEntry as submitEntry } from "../services/apiRequests";
 import UserContext from "../contexts/UserContext";
-
+import routes from "../routes/routes";
 export default function NewEntry() {
     const [disabled, setDisabled] = useState(false);
     const [amount, setAmount] = useState("");
@@ -23,9 +23,8 @@ export default function NewEntry() {
             return alert("Please, write an amount and a description");
 
         submitEntry({ amount, description, type: typeName }, user.token)
-            .then((response) => {
-                console.log(response.data);
-                history.push("/mywallet");
+            .then(() => {
+                history.push(routes.mywallet);
             })
             .catch((error) => console.log(error.response.data));
 

@@ -17,6 +17,12 @@ export default function MyWallet() {
     useEffect(() => {
         if (!user.token) history.push(routes.signIn);
     }, []);
+
+    function signOut() {
+        localStorage.removeItem("user");
+        history.push(routes.signIn);
+    }
+
     return (
         <PageContainer>
             <InnerWrapper>
@@ -24,7 +30,7 @@ export default function MyWallet() {
                     <Title>
                         Hi, <Name>{userFirstName}</Name>
                     </Title>
-                    <ActionButton>
+                    <ActionButton onClick={signOut}>
                         <RiLogoutBoxRLine />
                     </ActionButton>
                 </TitleContainer>

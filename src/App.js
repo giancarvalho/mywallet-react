@@ -12,7 +12,6 @@ import { useState } from "react";
 function App() {
     const [user, setUser] = useState({ token: null, name: "" });
 
-    console.log(user);
     return (
         <Router>
             <UserContext.Provider value={{ user, setUser }}>
