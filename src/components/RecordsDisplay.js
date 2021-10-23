@@ -3,12 +3,11 @@ import { useContext } from "react/cjs/react.development";
 import styled from "styled-components";
 import TokenContext from "../contexts/TokenContext";
 import { getEntries } from "../services/apiRequests";
-
+import dayjs from "dayjs";
 function Entries({ entriesData }) {
     const balance = calculateBalance(entriesData);
     function calculateBalance() {
         const balance = entriesData.reduce((previousValue, currentValue) => {
-            console.log(previousValue, currentValue);
             if (currentValue.type === "expense") {
                 return previousValue - Number(currentValue.amount);
             }
@@ -23,10 +22,15 @@ function Entries({ entriesData }) {
     return (
         <EntriesContainer>
             <RecordList>
-                <Item>
-                    <Date>30/11</Date>
-                    <Details>Lunch Mother</Details> <Price>14.55</Price>
-                </Item>
+                {entriesData.map((entry, index) => (
+                    <Item key={index}>
+                        <Date>{dayjs(entry.date).format("DD-MM")}</Date>
+                        <Details>{entry.description}</Details>{" "}
+                        <Price negative={entry.type === "expense"}>
+                            {entry.amount}
+                        </Price>
+                    </Item>
+                ))}
             </RecordList>
             <BalanceContainer>
                 <h2>BALANCE</h2>
@@ -90,7 +94,7 @@ const BalanceContainer = styled.div`
 `;
 
 const Balance = styled.p`
-    color: ${({ negative }) => (negative ? "red" : "#03ac00")};
+    color: ${({ negative }) => (negative ? "#c70000" : "#03ac00")};
 `;
 
 const RecordList = styled.ul`
@@ -111,11 +115,12 @@ const Date = styled.span`
 `;
 
 const Price = styled.span`
-    color: #c70000;
+    color: ${({ negative }) => (negative ? "#c70000" : "#03ac00")};
     align-self: flex-end;
 `;
 
 const Item = styled.li`
     display: flex;
     justify-content: space-between;
+    margin-bottom: 5px;
 `;
