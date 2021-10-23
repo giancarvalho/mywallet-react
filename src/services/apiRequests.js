@@ -21,4 +21,8 @@ function getEntries(token) {
     return axiosBase.get("/entries", createBearerAuth(token));
 }
 
-export { createUser, authenticateUser, getEntries };
+function createEntry(entry, token) {
+    return axiosBase.post("/entries", entry, createBearerAuth(token));
+}
+
+export { createUser, authenticateUser, getEntries, createEntry };

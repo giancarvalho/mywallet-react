@@ -25,7 +25,7 @@ function Entries({ entriesData }) {
                 {entriesData.map((entry, index) => (
                     <Item key={index}>
                         <Date>{dayjs(entry.date).format("DD-MM")}</Date>
-                        <Details>{entry.description}</Details>{" "}
+                        <Details>{entry.description}</Details>
                         <Price negative={entry.type === "expense"}>
                             {entry.amount}
                         </Price>
@@ -77,6 +77,7 @@ const EntriesContainer = styled.div`
     width: 100%;
     height: 100%;
     display: flex;
+    justify-content: space-between;
     flex-direction: column;
 `;
 
@@ -98,15 +99,19 @@ const Balance = styled.p`
 `;
 
 const RecordList = styled.ul`
+    position: relative;
     width: 100%;
-    flex-grow: 1;
+    flex: 1 1 230px;
     overflow-y: scroll;
+    overflow-x: hidden;
     color: #000;
     font-size: 15px;
+    padding: 5px 3px;
 `;
 
 const Details = styled.div`
     flex-grow: 1;
+    word-wrap: break-word;
 
     ::first-letter {
         text-transform: capitalize;
@@ -114,11 +119,14 @@ const Details = styled.div`
 `;
 
 const Date = styled.span`
+    min-width: 40px;
     color: #c6c6c6;
     margin-right: 8px;
 `;
 
 const Price = styled.span`
+    text-align: end;
+    min-width: 50px;
     color: ${({ negative }) => (negative ? "#c70000" : "#03ac00")};
     align-self: flex-end;
 `;
