@@ -10,26 +10,29 @@ import Button from "../components/_shared/Button";
 import Logo from "../components/Logo";
 import { authenticateUser } from "../services/apiRequests";
 import { useHistory } from "react-router";
-import TokenContext from "../contexts/TokenContext";
+import UserContext from "../contexts/UserContext";
 
 export default function SignIn() {
     const [disabled, setDisabled] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const history = useHistory();
-    const { setToken } = useContext(TokenContext);
-    const storedToken = localStorage.getItem("token");
+    const { setUser } = useContext(UserContext);
+    const storedUser = getStoredUser();
 
     useEffect(() => {
-        if (storedToken) {
-            setToken(storedToken);
+        if (storedUser) {
+            setUser(storedUser);
             history.push("/mywallet");
             return;
         }
-    }, [storedToken, history, setToken]);
+    }, [storedUser, history, setUser]);
 
-    function storeToken(token) {
-        localStorage.setItem("token", token);
+    function getStoredUser() {
+        return JSON.parse(localStorage.getItem("user"));
+    }
+    function storeUser(user) {
+        localStorage.setItem("user", JSON.stringify(user));
     }
 
     function signIn(e) {
@@ -38,8 +41,8 @@ export default function SignIn() {
 
         authenticateUser({ email, password })
             .then((response) => {
-                storeToken(response.data);
-                setToken(response.data);
+                storeUser(response.data);
+                setUser(response.data);
                 history.push("/mywallet");
             })
             .catch((error) => {

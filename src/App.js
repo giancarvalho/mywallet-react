@@ -6,15 +6,16 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import MyWallet from "./pages/MyWallet";
 import NewEntry from "./pages/NewEntry";
-import TokenContext from "./contexts/TokenContext";
+import UserContext from "./contexts/UserContext";
 import { useState } from "react";
 
 function App() {
-    const [token, setToken] = useState({ token: null });
+    const [user, setUser] = useState({ token: null, name: "" });
 
+    console.log(user);
     return (
         <Router>
-            <TokenContext.Provider value={{ token, setToken }}>
+            <UserContext.Provider value={{ user, setUser }}>
                 <Switch>
                     <Route path={routes.signIn} exact>
                         <SignIn />
@@ -29,7 +30,7 @@ function App() {
                         <NewEntry />
                     </Route>
                 </Switch>
-            </TokenContext.Provider>
+            </UserContext.Provider>
         </Router>
     );
 }

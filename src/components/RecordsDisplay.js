@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useContext } from "react/cjs/react.development";
 import styled from "styled-components";
-import TokenContext from "../contexts/TokenContext";
+import UserContext from "../contexts/UserContext";
 import { getEntries } from "../services/apiRequests";
 import dayjs from "dayjs";
 function Entries({ entriesData }) {
+    console.log(entriesData);
     const balance = calculateBalance(entriesData);
     function calculateBalance() {
         const balance = entriesData.reduce((previousValue, currentValue) => {
@@ -18,7 +19,6 @@ function Entries({ entriesData }) {
         return balance;
     }
 
-    console.log();
     return (
         <EntriesContainer>
             <RecordList>
@@ -42,13 +42,13 @@ function Entries({ entriesData }) {
 
 export default function RecordsDisplay() {
     const [entries, setEntries] = useState([]);
-    const { token } = useContext(TokenContext);
+    const { user } = useContext(UserContext);
 
     useEffect(() => {
-        getEntries(token)
+        getEntries(user.token)
             .then((response) => setEntries(response.data))
             .catch((error) => console.log(error.response.data));
-    }, [token]);
+    }, [user]);
 
     return (
         <DisplayContainer>
@@ -107,6 +107,10 @@ const RecordList = styled.ul`
 
 const Details = styled.div`
     flex-grow: 1;
+
+    ::first-letter {
+        text-transform: capitalize;
+    }
 `;
 
 const Date = styled.span`

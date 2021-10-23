@@ -6,14 +6,20 @@ import ActionButton from "../components/_shared/ActionButton";
 import RecordsDisplay from "../components/RecordsDisplay";
 import Title from "../components/_shared/Title";
 import { useHistory } from "react-router";
+import { useContext } from "react";
+import UserContext from "../contexts/UserContext";
+
 export default function MyWallet() {
     const history = useHistory();
-
+    const { user } = useContext(UserContext);
+    const userFirstName = user.name.split(" ")[0];
     return (
         <PageContainer>
             <InnerWrapper>
                 <TitleContainer>
-                    <Title>Ola, Fulano</Title>
+                    <Title>
+                        Hi, <Name>{userFirstName}</Name>
+                    </Title>
                     <ActionButton>
                         <RiLogoutBoxRLine />
                     </ActionButton>
@@ -77,4 +83,14 @@ const EntriesButton = styled.div`
     svg {
         font-size: 23px;
     }
+`;
+
+const Name = styled.span`
+    display: inline-block;
+    text-transform: capitalize;
+    width: 45vw;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    vertical-align: bottom;
 `;
