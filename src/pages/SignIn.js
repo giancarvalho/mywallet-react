@@ -23,7 +23,7 @@ export default function SignIn() {
     useEffect(() => {
         if (storedUser) {
             setUser(storedUser);
-            history.push("/mywallet");
+            history.push(routes.mywallet);
             return;
         }
     }, [storedUser, history, setUser]);

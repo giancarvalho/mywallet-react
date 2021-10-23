@@ -4,8 +4,8 @@ import styled from "styled-components";
 import UserContext from "../contexts/UserContext";
 import { getEntries } from "../services/apiRequests";
 import dayjs from "dayjs";
+
 function Entries({ entriesData }) {
-    console.log(entriesData);
     const balance = calculateBalance(entriesData);
     function calculateBalance() {
         const balance = entriesData.reduce((previousValue, currentValue) => {
