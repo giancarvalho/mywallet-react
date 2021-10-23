@@ -1,7 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useContext } from "react/cjs/react.development";
 import styled from "styled-components";
+import TokenContext from "../contexts/TokenContext";
+import { getEntries } from "../services/apiRequests";
 
-function Records() {
+function Entries({ entriesData }) {
+    const balance = calculateBalance(entriesData);
+    function calculateBalance() {
+        const balance = entriesData.reduce((previousValue, currentValue) => {
+            console.log(previousValue, currentValue);
+            if (currentValue.type === "expense") {
+                return previousValue - Number(currentValue.amount);
+            }
+
+            return previousValue + Number(currentValue.amount);
+        }, 0);
+
+        return balance;
+    }
+
+    console.log();
     return (
         <EntriesContainer>
             <RecordList>
@@ -12,31 +30,34 @@ function Records() {
             </RecordList>
             <BalanceContainer>
                 <h2>BALANCE</h2>
-                <Balance>2444.96</Balance>
+                <Balance negative={balance < 0}>{balance.toFixed(2)}</Balance>
             </BalanceContainer>
         </EntriesContainer>
     );
 }
 
 export default function RecordsDisplay() {
-    const [records, setRecords] = useState([]);
+    const [entries, setEntries] = useState([]);
+    const { token } = useContext(TokenContext);
 
-    function getRecords() {
-        //api records call
-    }
+    useEffect(() => {
+        getEntries(token)
+            .then((response) => setEntries(response.data))
+            .catch((error) => console.log(error.response.data));
+    }, [token]);
 
     return (
-        <RecordsContainer>
-            {records.length > 0 ? (
-                <Records />
+        <DisplayContainer>
+            {entries.length > 0 ? (
+                <Entries entriesData={entries} />
             ) : (
                 <p>No income or expense entries yet</p>
             )}
-        </RecordsContainer>
+        </DisplayContainer>
     );
 }
 
-const RecordsContainer = styled.div`
+const DisplayContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -69,7 +90,7 @@ const BalanceContainer = styled.div`
 `;
 
 const Balance = styled.p`
-    color: #03ac00;
+    color: ${({ negative }) => (negative ? "red" : "#03ac00")};
 `;
 
 const RecordList = styled.ul`

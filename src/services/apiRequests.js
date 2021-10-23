@@ -16,4 +16,9 @@ function authenticateUser(userData) {
     return axiosBase.post("/sign-in", userData);
 }
 
-export { createUser, authenticateUser };
+function getEntries(token) {
+    console.log(createBearerAuth(token));
+    return axiosBase.get("/entries", createBearerAuth(token));
+}
+
+export { createUser, authenticateUser, getEntries };
