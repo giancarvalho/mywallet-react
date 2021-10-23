@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import routes from "../routes/routes";
 import {
@@ -10,12 +10,27 @@ import Button from "../components/_shared/Button";
 import Logo from "../components/Logo";
 import { authenticateUser } from "../services/apiRequests";
 import { useHistory } from "react-router";
+import TokenContext from "../contexts/TokenContext";
 
 export default function SignIn() {
     const [disabled, setDisabled] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const history = useHistory();
+    const { setToken } = useContext(TokenContext);
+    const storedToken = localStorage.getItem("token");
+
+    useEffect(() => {
+        if (storedToken) {
+            setToken(storedToken);
+            history.push("/mywallet");
+            return;
+        }
+    }, [storedToken, history, setToken]);
+
+    function storeToken(token) {
+        localStorage.setItem("token", token);
+    }
 
     function signIn(e) {
         e.preventDefault();
@@ -23,6 +38,8 @@ export default function SignIn() {
 
         authenticateUser({ email, password })
             .then((response) => {
+                storeToken(response.data);
+                setToken(response.data);
                 history.push("/mywallet");
             })
             .catch((error) => {
