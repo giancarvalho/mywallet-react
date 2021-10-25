@@ -6,17 +6,13 @@ import ActionButton from "../components/_shared/ActionButton";
 import RecordsDisplay from "../components/RecordsDisplay";
 import Title from "../components/_shared/Title";
 import { useHistory } from "react-router";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import UserContext from "../contexts/UserContext";
 import routes from "../routes/routes";
 export default function MyWallet() {
     const history = useHistory();
     const { user } = useContext(UserContext);
     const userFirstName = user.name.split(" ")[0];
-
-    useEffect(() => {
-        if (!user.token) history.push(routes.signIn);
-    }, []);
 
     function signOut() {
         localStorage.removeItem("user");

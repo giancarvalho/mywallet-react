@@ -8,6 +8,7 @@ import MyWallet from "./pages/MyWallet";
 import NewEntry from "./pages/NewEntry";
 import UserContext from "./contexts/UserContext";
 import { useState } from "react";
+import PrivateRoute from "./routes/PrivateRoute";
 
 function App() {
     const [user, setUser] = useState({ token: null, name: "" });
@@ -22,12 +23,16 @@ function App() {
                     <Route path={routes.signUp} exact>
                         <SignUp />
                     </Route>
-                    <Route path={routes.mywallet} exact>
-                        <MyWallet />
-                    </Route>
-                    <Route path={`${routes.newEntry}/:type`} exact>
-                        <NewEntry />
-                    </Route>
+                    <PrivateRoute
+                        path={routes.mywallet}
+                        element={MyWallet}
+                        exact
+                    />
+                    <PrivateRoute
+                        path={`${routes.newEntry}/:type`}
+                        element={NewEntry}
+                        exact
+                    />
                 </Switch>
             </UserContext.Provider>
         </Router>

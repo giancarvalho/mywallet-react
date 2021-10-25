@@ -46,7 +46,11 @@ export default function SignIn() {
                 history.push(routes.mywallet);
             })
             .catch((error) => {
-                alert(error.response.data);
+                alert(
+                    error.response
+                        ? error.response?.data
+                        : "server not responding"
+                );
                 setDisabled(false);
             });
     }

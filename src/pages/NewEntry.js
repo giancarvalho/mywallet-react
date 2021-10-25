@@ -8,6 +8,9 @@ import Title from "../components/_shared/Title";
 import { createEntry as submitEntry } from "../services/apiRequests";
 import UserContext from "../contexts/UserContext";
 import routes from "../routes/routes";
+import { IoArrowBackCircleOutline } from "react-icons/io5";
+import ActionButton from "../components/_shared/ActionButton";
+
 export default function NewEntry() {
     const [disabled, setDisabled] = useState(false);
     const [amount, setAmount] = useState("");
@@ -33,9 +36,17 @@ export default function NewEntry() {
     return (
         <PageContainer>
             <InnerWrap>
-                <Title>
-                    New <Type>{typeName}</Type>
-                </Title>
+                <TitleContainer>
+                    <Title>
+                        New <Type>{typeName}</Type>
+                    </Title>
+                    <ActionButton
+                        onClick={() => history.push(routes.mywallet)}
+                        customStyle={{ fontSize: "30px" }}
+                    >
+                        <IoArrowBackCircleOutline />
+                    </ActionButton>
+                </TitleContainer>
                 <form onSubmit={createEntry}>
                     <fieldset disabled={disabled}>
                         <Input
@@ -63,4 +74,10 @@ const InnerWrap = styled.div``;
 
 const Type = styled.span`
     text-transform: capitalize;
+`;
+
+const TitleContainer = styled.div`
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
 `;
