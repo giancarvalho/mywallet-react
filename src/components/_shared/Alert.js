@@ -17,19 +17,20 @@ export default function Alert({ alert, setAlert }) {
 }
 
 const AlertContainer = styled.div`
-    height: 40px;
+    min-height: 40px;
     width: 85vw;
     display: ${({ status }) => (status ? "flex" : "none")};
     justify-content: center;
     align-items: center;
     position: fixed;
+    padding: 5px;
     top: 10%;
     left: 50%;
     transform: translate(-50%, 0);
     font-weight: 700;
     color: ${({ error }) => (error ? "#e06b6b" : "#6bbd9b")};
     background-color: ${({ error }) =>
-        error ? "rgb(248, 217, 217)" : "rgb(237, 248, 246)"};
+        error ? "rgb(241, 241, 241)" : "rgb(237, 248, 246)"};
     border-radius: 4px;
     border: ${({ error }) =>
         error ? "1px solid #e06b6b" : "1px solid #5fe0aa"};

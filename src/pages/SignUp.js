@@ -35,7 +35,7 @@ export default function SignUp({ sendAlert }) {
         }
 
         createUser(newUser)
-            .then(() => history.push(routes.signIn))
+            .then(() => history.push(`${routes.signIn}?registered=true`))
             .catch((error) => {
                 setDisabled(false);
                 alert(

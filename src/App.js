@@ -7,7 +7,7 @@ import SignUp from "./pages/SignUp";
 import MyWallet from "./pages/MyWallet";
 import NewEntry from "./pages/NewEntry";
 import UserContext from "./contexts/UserContext";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import PrivateRoute from "./routes/PrivateRoute";
 import Alert from "./components/_shared/Alert";
 
@@ -19,9 +19,9 @@ function App() {
         error: false,
     });
 
-    function sendAlert({ message, error }) {
+    const sendAlert = useCallback(({ message, error }) => {
         setAlert({ status: true, message, error });
-    }
+    }, []);
 
     return (
         <Router>
