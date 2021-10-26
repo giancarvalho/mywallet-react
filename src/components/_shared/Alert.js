@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import styled from "styled-components";
+import { CSSTransition } from "react-transition-group";
 
 export default function Alert({ alert, setAlert }) {
     useEffect(() => {
@@ -10,16 +11,23 @@ export default function Alert({ alert, setAlert }) {
         }
     }, [alert, setAlert]);
     return (
-        <AlertContainer error={alert.error} status={alert.status}>
-            {alert.message}
-        </AlertContainer>
+        <CSSTransition
+            in={alert.status}
+            timeout={300}
+            classNames="alert"
+            unmountOnExit
+        >
+            <AlertContainer error={alert.error} status={alert.status}>
+                {alert.message}
+            </AlertContainer>
+        </CSSTransition>
     );
 }
 
 const AlertContainer = styled.div`
     min-height: 40px;
     width: 85vw;
-    display: ${({ status }) => (status ? "flex" : "none")};
+    display: flex;
     justify-content: center;
     align-items: center;
     position: fixed;

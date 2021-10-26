@@ -9,9 +9,8 @@ const Input = styled.input`
     margin-bottom: 8px;
     border-radius: 5px;
     padding: 5px;
-    background: ${({ alert }) =>
-        alert ? "rgb(255, 211, 211)" : "rgb(255, 255, 255)"};
-    border: ${({ alert }) => (alert ? "1px solid #e06b6b" : "none")};
+    background: #fff;
+    border: ${({ alert }) => (alert ? "2px solid #df0000" : "none")};
 
     &:focus {
         outline: none;

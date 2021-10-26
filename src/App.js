@@ -47,6 +47,7 @@ function App() {
                     />
                 </Switch>
             </UserContext.Provider>
+
             <Alert alert={alert} setAlert={setAlert} />
         </Router>
     );
