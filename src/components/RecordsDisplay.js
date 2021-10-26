@@ -47,7 +47,7 @@ export default function RecordsDisplay() {
     useEffect(() => {
         getEntries(user.token)
             .then((response) => setEntries(response.data))
-            .catch((error) => console.log(error.response.data));
+            .catch((error) => console.log(error.response?.data));
     }, [user]);
 
     return (

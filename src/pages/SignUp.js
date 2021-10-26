@@ -8,11 +8,10 @@ import {
 import Input from "../components/_shared/Input";
 import Button from "../components/_shared/Button";
 import Logo from "../components/Logo";
-import styled from "styled-components";
 import { createUser } from "../services/apiRequests";
 import { useHistory } from "react-router";
 
-export default function SignUp() {
+export default function SignUp({ sendAlert }) {
     const [disabled, setDisabled] = useState(false);
     const [newUser, setNewUser] = useState({
         name: "",
@@ -28,8 +27,10 @@ export default function SignUp() {
         setDisabled(true);
 
         if (confirmPassword !== newUser.password) {
+            sendAlert({ message: "Your passwords don't match", error: true });
+            setDisabled(false);
             setAlertMismatch(true);
-            setTimeout(() => setAlertMismatch(false), 3000);
+            setTimeout(() => setAlertMismatch(false), 5000);
             return;
         }
 
@@ -49,9 +50,6 @@ export default function SignUp() {
                 <Logo />
                 <form onSubmit={signUp}>
                     <fieldset disabled={disabled}>
-                        {alertMismatch && (
-                            <Alert>Your passwords don't match.</Alert>
-                        )}
                         <Input
                             placeholder="Name"
                             onChange={(e) =>
@@ -107,8 +105,3 @@ export default function SignUp() {
         </PageContainer>
     );
 }
-
-const Alert = styled.p`
-    color: #ffbfbf;
-    margin-bottom: 10px;
-`;

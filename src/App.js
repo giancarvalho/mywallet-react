@@ -9,32 +9,45 @@ import NewEntry from "./pages/NewEntry";
 import UserContext from "./contexts/UserContext";
 import { useState } from "react";
 import PrivateRoute from "./routes/PrivateRoute";
+import Alert from "./components/_shared/Alert";
 
 function App() {
     const [user, setUser] = useState({ token: null, name: "" });
+    const [alert, setAlert] = useState({
+        status: false,
+        message: "",
+        error: false,
+    });
+
+    function sendAlert({ message, error }) {
+        setAlert({ status: true, message, error });
+    }
 
     return (
         <Router>
             <UserContext.Provider value={{ user, setUser }}>
                 <Switch>
                     <Route path={routes.signIn} exact>
-                        <SignIn />
+                        <SignIn sendAlert={sendAlert} />
                     </Route>
                     <Route path={routes.signUp} exact>
-                        <SignUp />
+                        <SignUp sendAlert={sendAlert} />
                     </Route>
                     <PrivateRoute
                         path={routes.mywallet}
                         element={MyWallet}
                         exact
+                        sendAlert={sendAlert}
                     />
                     <PrivateRoute
                         path={`${routes.newEntry}/:type`}
                         element={NewEntry}
                         exact
+                        sendAlert={sendAlert}
                     />
                 </Switch>
             </UserContext.Provider>
+            <Alert alert={alert} setAlert={setAlert} />
         </Router>
     );
 }
