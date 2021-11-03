@@ -1,14 +1,28 @@
 import dayjs from "dayjs";
+import { useState } from "react";
 import styled from "styled-components";
+import { AiOutlineDelete } from "react-icons/ai";
 
 function Entry({ entryData }) {
+    const [showDeleteBtn, setShowDeleteBtn] = useState(false);
+
     return (
-        <Item>
-            <Date>{dayjs(entryData.date).format("DD-MM")}</Date>
-            <Details>{entryData.description}</Details>
-            <Price negative={entryData.type === "expense"}>
-                {entryData.amount}
-            </Price>
+        <Item onClick={() => setShowDeleteBtn(!showDeleteBtn)}>
+            <DeleteButton visible={showDeleteBtn}>
+                <DeleteIcon visible={showDeleteBtn} />
+            </DeleteButton>
+            <ContentContainer>
+                <Date visible={!showDeleteBtn}>
+                    {dayjs(entryData.date).format("DD-MM")}
+                </Date>
+                <Details>{entryData.description}</Details>
+                <Price
+                    negative={entryData.type === "expense"}
+                    visible={!showDeleteBtn}
+                >
+                    {entryData.amount}
+                </Price>
+            </ContentContainer>
         </Item>
     );
 }
@@ -82,6 +96,7 @@ const Details = styled.div`
     flex-grow: 1;
     width: 50%;
     word-wrap: break-word;
+    transition: width 0.2s ease-in-out;
 
     ::first-letter {
         text-transform: capitalize;
@@ -89,6 +104,7 @@ const Details = styled.div`
 `;
 
 const Date = styled.span`
+    display: ${({ visible }) => (visible ? "initial" : "none")};
     min-width: 40px;
     color: #c6c6c6;
     margin-right: 8px;
@@ -104,6 +120,24 @@ const Price = styled.span`
 
 const Item = styled.li`
     display: flex;
-    justify-content: space-between;
     margin-bottom: 5px;
+`;
+
+const DeleteButton = styled.div`
+    width: ${({ visible }) => (visible ? "10px" : "0")};
+    margin-right: ${({ visible }) => (visible ? "50px" : "0")};
+    pointer-events: ${({ visible }) => (visible ? "inital" : "none")};
+    transition: width 0.15s ease-in-out;
+`;
+
+const ContentContainer = styled.div`
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-between;
+`;
+
+const DeleteIcon = styled(AiOutlineDelete)`
+    font-size: 20px;
+    opacity: ${({ visible }) => (visible ? "1" : "0")};
+    transition: opacity 0.15s ease-in-out;
 `;
