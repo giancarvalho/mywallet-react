@@ -10,6 +10,8 @@ import UserContext from "../contexts/UserContext";
 import routes from "../routes/routes";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import ActionButton from "../components/_shared/ActionButton";
+import amountSchema from "../schemas/amountSchema";
+import descriptionSchema from "../schemas/descriptionSchema";
 
 export default function NewEntry() {
     const [disabled, setDisabled] = useState(false);
@@ -19,11 +21,31 @@ export default function NewEntry() {
     const { type: typeName } = useParams();
     const history = useHistory();
 
+    function areInputsInvalid() {
+        const validateAmount = amountSchema.validate(amount);
+        const validateDescription = descriptionSchema.validate(description);
+
+        if (validateAmount.error) {
+            alert("The amount should be between 0.01 and 1 billion");
+            return true;
+        }
+
+        if (validateDescription.error) {
+            alert("Description should between 3 and 30 characters long");
+            return true;
+        }
+
+        return false;
+    }
+
     function createEntry(e) {
         e.preventDefault();
         setDisabled(true);
-        if (amount === 0 || description.length < 3)
-            return alert("Please, write an amount and a description");
+
+        if (areInputsInvalid()) {
+            setDisabled(false);
+            return;
+        }
 
         submitEntry({ amount, description, type: typeName }, user.token)
             .then(() => {
