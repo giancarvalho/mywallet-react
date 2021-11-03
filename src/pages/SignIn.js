@@ -75,6 +75,7 @@ export default function SignIn({ sendAlert }) {
                 <form onSubmit={signIn}>
                     <fieldset disabled={disabled}>
                         <Input
+                            type="email"
                             placeholder="E-mail"
                             onChange={(e) => setEmail(e.target.value)}
                             value={email}
