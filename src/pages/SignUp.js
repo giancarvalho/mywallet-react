@@ -10,6 +10,7 @@ import Button from "../components/_shared/Button";
 import Logo from "../components/Logo";
 import { createUser } from "../services/apiRequests";
 import { useHistory } from "react-router";
+import newUserSchema from "../schemas/newUserSchema";
 
 export default function SignUp({ sendAlert }) {
     const [disabled, setDisabled] = useState(false);
@@ -22,15 +23,34 @@ export default function SignUp({ sendAlert }) {
     const [alertMismatch, setAlertMismatch] = useState(false);
     const history = useHistory();
 
+    function areInputsInvalid() {
+        const newUserValidation = newUserSchema.validate(newUser);
+
+        if (newUserValidation.error) {
+            sendAlert({
+                message: newUserValidation.error.message,
+                error: true,
+            });
+            return true;
+        }
+
+        if (newUser.password !== confirmPassword) {
+            sendAlert({ message: "Your passwords don't match", error: true });
+            setAlertMismatch(true);
+            setTimeout(() => setAlertMismatch(false), 5000);
+            return true;
+        }
+
+        return false;
+    }
+
     function signUp(e) {
         e.preventDefault();
         setDisabled(true);
 
-        if (confirmPassword !== newUser.password) {
-            sendAlert({ message: "Your passwords don't match", error: true });
+        if (areInputsInvalid()) {
             setDisabled(false);
-            setAlertMismatch(true);
-            setTimeout(() => setAlertMismatch(false), 5000);
+
             return;
         }
 
@@ -38,9 +58,11 @@ export default function SignUp({ sendAlert }) {
             .then(() => history.push(`${routes.signIn}?registered=true`))
             .catch((error) => {
                 setDisabled(false);
-                alert(
-                    "It wasn't possible to create your account. Please, try again."
-                );
+                sendAlert({
+                    message:
+                        "It wasn't possible to create your account. Please, try again later.",
+                    error: true,
+                });
             });
     }
 
