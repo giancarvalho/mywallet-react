@@ -38,7 +38,6 @@ function App() {
                         path={routes.mywallet}
                         element={MyWallet}
                         exact
-                        sendAlert={sendAlert}
                     />
                     <PrivateRoute
                         path={`${routes.newEntry}/:type`}
