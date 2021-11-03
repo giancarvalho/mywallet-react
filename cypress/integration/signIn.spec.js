@@ -1,15 +1,25 @@
 /// <reference types="cypress" />
-// sim, três barras mesmo e com todos os espaços certinhos
+import faker from "faker";
 
 describe("Sign in", () => {
+    let user = {
+        name: faker.name.findName(),
+        password: faker.internet.password(),
+        email: faker.internet.email(),
+    };
+    before(() => {
+        cy.signup(user);
+    });
     it("should sign in successfully if user is valid", () => {
         cy.visit("http://localhost:3000/");
 
-        cy.get("input[type=email]").type("gian@example.com");
-        cy.get("input[type=password]").type("123456");
-        cy.get("button").click();
-
-        cy.url().should("equal", "http://localhost:3000/mywallet");
+        cy.get("input[type=email]").type(user.email);
+        cy.get("input[type=password]").type(user.password);
+        cy.contains("Sign In")
+            .click()
+            .then(() => {
+                cy.url().should("equal", "http://localhost:3000/mywallet");
+            });
     });
 
     it("should show error message if user doesn't exist", () => {
@@ -17,8 +27,10 @@ describe("Sign in", () => {
 
         cy.get("input[type=email]").type("idontexist@user.com");
         cy.get("input[type=password]").type("123456");
-        cy.get("button").click();
-
-        cy.contains("Not Found").should("be.visible");
+        cy.contains("Sign In")
+            .click()
+            .then(() => {
+                cy.contains("Not Found").should("be.visible");
+            });
     });
 });

@@ -1,7 +1,9 @@
 import axios from "axios";
 
 const axiosBase = axios.create({
-    baseURL: "https://mywallet-app-me.herokuapp.com",
+    baseURL: "http://localhost:4000",
 });
+
+//https://mywallet-app-me.herokuapp.com
 
 export default axiosBase;
