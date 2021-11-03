@@ -11,4 +11,14 @@ describe("Sign in", () => {
 
         cy.url().should("equal", "http://localhost:3000/mywallet");
     });
+
+    it("should show error message if user doesn't exist", () => {
+        cy.visit("http://localhost:3000/");
+
+        cy.get("input[type=email]").type("idontexist@user.com");
+        cy.get("input[type=password]").type("123456");
+        cy.get("button").click();
+
+        cy.contains("Not Found").should("be.visible");
+    });
 });
