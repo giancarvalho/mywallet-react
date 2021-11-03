@@ -111,6 +111,7 @@ const RecordList = styled.ul`
 
 const Details = styled.div`
     flex-grow: 1;
+    width: 50%;
     word-wrap: break-word;
 
     ::first-letter {
@@ -127,6 +128,7 @@ const Date = styled.span`
 const Price = styled.span`
     text-align: end;
     min-width: 50px;
+    margin: 0 10px 0 5px;
     color: ${({ negative }) => (negative ? "#c70000" : "#03ac00")};
     align-self: flex-end;
 `;

@@ -19,8 +19,9 @@ function App() {
         error: false,
     });
 
-    const sendAlert = useCallback(({ message, error }) => {
-        setAlert({ status: true, message, error });
+    const sendAlert = useCallback((details) => {
+        console.log(details.position);
+        setAlert({ status: true, ...details });
     }, []);
 
     return (

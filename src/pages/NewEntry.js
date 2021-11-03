@@ -13,7 +13,7 @@ import ActionButton from "../components/_shared/ActionButton";
 import amountSchema from "../schemas/amountSchema";
 import descriptionSchema from "../schemas/descriptionSchema";
 
-export default function NewEntry() {
+export default function NewEntry({ sendAlert }) {
     const [disabled, setDisabled] = useState(false);
     const [amount, setAmount] = useState("");
     const [description, setDescription] = useState("");
@@ -26,12 +26,21 @@ export default function NewEntry() {
         const validateDescription = descriptionSchema.validate(description);
 
         if (validateAmount.error) {
-            alert("The amount should be between 0.01 and 1 billion");
+            sendAlert({
+                error: true,
+                message: "Amount should be between 0.01 and 1 billion",
+                position: "80%",
+            });
             return true;
         }
 
         if (validateDescription.error) {
-            alert("Description should between 3 and 30 characters long");
+            sendAlert({
+                error: true,
+                message:
+                    "Description should be between 3 and 30 characters long",
+                position: "80%",
+            });
             return true;
         }
 

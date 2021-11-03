@@ -3,6 +3,10 @@ import styled from "styled-components";
 import { CSSTransition } from "react-transition-group";
 
 export default function Alert({ alert, setAlert }) {
+    //pass message
+    //Optionally, pass error (boolean) to change to error style
+    //Optionally, pass position to change default position from the top
+
     useEffect(() => {
         if (alert.status) {
             setTimeout(() => {
@@ -17,7 +21,11 @@ export default function Alert({ alert, setAlert }) {
             classNames="alert"
             unmountOnExit
         >
-            <AlertContainer error={alert.error} status={alert.status}>
+            <AlertContainer
+                error={alert.error}
+                position={alert.position}
+                status={alert.status}
+            >
                 {alert.message}
             </AlertContainer>
         </CSSTransition>
@@ -32,7 +40,7 @@ const AlertContainer = styled.div`
     align-items: center;
     position: fixed;
     padding: 5px;
-    top: 10%;
+    top: ${({ position }) => (position ? position : "10%")};
     left: 50%;
     transform: translate(-50%, 0);
     font-weight: 700;
