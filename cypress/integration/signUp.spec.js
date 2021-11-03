@@ -1,12 +1,9 @@
 /// <reference types="cypress" />
-import faker from "faker";
+
+import generateFakeUser from "../factories/userFactory";
 
 describe("/sign-up", () => {
-    const user = {
-        name: faker.name.findName(),
-        email: faker.internet.email(),
-        password: faker.internet.password(),
-    };
+    const user = generateFakeUser();
 
     it("Should redirect to sign in page and show success message if sign up is sucessful", () => {
         cy.visit("http://localhost:3000/sign-up");
@@ -21,7 +18,7 @@ describe("/sign-up", () => {
         cy.contains("Sign Up")
             .click()
             .then(() => {
-                cy.contains("Success!");
+                cy.contains("Success!").should("be.visible");
             });
     });
 });

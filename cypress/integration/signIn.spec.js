@@ -1,12 +1,8 @@
 /// <reference types="cypress" />
-import faker from "faker";
+import generateFakeUser from "../factories/userFactory";
 
 describe("Sign in", () => {
-    let user = {
-        name: faker.name.findName(),
-        password: faker.internet.password(),
-        email: faker.internet.email(),
-    };
+    const user = generateFakeUser();
     before(() => {
         cy.signup(user);
     });

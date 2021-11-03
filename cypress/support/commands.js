@@ -29,6 +29,27 @@ Cypress.Commands.add("signup", (user) => {
         },
     });
 });
+
+Cypress.Commands.add("getToken", (user) => {
+    cy.request({
+        method: "POST",
+        url: "http://localhost:4000/sign-in",
+        body: user,
+    });
+});
+Cypress.Commands.add("createEntry", (user, entryData) => {
+    cy.getToken(user).then((response) => {
+        const token = response.body.token;
+        cy.request({
+            method: "POST",
+            url: "http://localhost:4000/entries",
+            body: entryData,
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+    });
+});
 //
 //
 // -- This is a child command --
