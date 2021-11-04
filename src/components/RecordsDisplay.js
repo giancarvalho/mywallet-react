@@ -18,14 +18,16 @@ export default function RecordsDisplay({ sendAlert }) {
 
     function deleteEntry(e, id) {
         e.stopPropagation();
+        const entriesClone = [...entries];
+        setEntries(entries.filter((entry) => entry.id !== id));
 
-        submitDeletion(id, user.token)
-            .then(() => setEntries(entries.filter((entry) => entry.id !== id)))
-            .catch(() =>
-                sendAlert({
-                    message: "It was not possible to delete this entry",
-                })
-            );
+        submitDeletion(id, user.token).catch(() => {
+            setEntries([...entriesClone]);
+            sendAlert({
+                message: "It was not possible to delete this entry",
+                error: true,
+            });
+        });
     }
 
     return (
