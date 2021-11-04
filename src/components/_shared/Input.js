@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Input = styled.input`
-    font-family: Railway, sans-serif;
+    font-family: "Raleway", sans-serif;
     width: 100%;
     height: 45px;
     color: #000;
