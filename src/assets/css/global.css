@@ -18,6 +18,8 @@ a {
     text-decoration: none;
 }
 
+/* transitions */
+
 .alert-enter {
     opacity: 0;
     transform: scale(0.9);
@@ -34,4 +36,41 @@ a {
     opacity: 0;
     transform: scale(0.9);
     transition: opacity 300ms, transform 300ms;
+}
+
+.delete-enter {
+    width: 0px;
+}
+
+.delete-exit {
+    width: 60px;
+}
+
+.delete-enter-active {
+    width: 60px;
+    transition: width 200ms ease-in-out;
+}
+
+.delete-exit-active {
+    width: 0;
+    transition: width 200ms ease-in-out;
+}
+
+.delete-enter-done {
+    width: 60px;
+}
+
+.date-appear,
+.date-enter {
+    width: 40px;
+    display: initial;
+}
+
+.date-exit-active,
+.date-exit {
+    display: none;
+}
+
+.date-enter-active {
+    display: none;
 }

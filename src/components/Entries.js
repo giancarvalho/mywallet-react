@@ -2,24 +2,37 @@ import dayjs from "dayjs";
 import { useState } from "react";
 import styled from "styled-components";
 import { AiOutlineDelete } from "react-icons/ai";
+import { CSSTransition } from "react-transition-group";
 
 function Entry({ entryData }) {
     const [showDeleteBtn, setShowDeleteBtn] = useState(false);
 
     return (
         <Item onClick={() => setShowDeleteBtn(!showDeleteBtn)}>
-            <DeleteButton visible={showDeleteBtn}>
-                <DeleteIcon visible={showDeleteBtn} />
-            </DeleteButton>
-            <ContentContainer>
-                <Date visible={!showDeleteBtn}>
-                    {dayjs(entryData.date).format("DD-MM")}
-                </Date>
-                <Details>{entryData.description}</Details>
-                <Price
-                    negative={entryData.type === "expense"}
-                    visible={!showDeleteBtn}
+            <AnimationContainer>
+                <CSSTransition
+                    in={showDeleteBtn}
+                    timeout={200}
+                    classNames="delete"
+                    unmountOnExit
                 >
+                    <DeleteButton visible={showDeleteBtn}>
+                        <DeleteIcon visible={showDeleteBtn} />
+                    </DeleteButton>
+                </CSSTransition>
+                <CSSTransition
+                    in={!showDeleteBtn}
+                    timeout={250}
+                    classNames="date"
+                    unmountOnExit
+                >
+                    <Date>{dayjs(entryData.date).format("DD-MM")}</Date>
+                </CSSTransition>
+            </AnimationContainer>
+
+            <ContentContainer>
+                <Details>{entryData.description}</Details>
+                <Price negative={entryData.type === "expense"}>
                     {entryData.amount}
                 </Price>
             </ContentContainer>
@@ -94,7 +107,7 @@ const RecordList = styled.ul`
 
 const Details = styled.div`
     flex-grow: 1;
-    width: 50%;
+    width: 100px;
     word-wrap: break-word;
     transition: width 0.2s ease-in-out;
 
@@ -104,10 +117,7 @@ const Details = styled.div`
 `;
 
 const Date = styled.span`
-    display: ${({ visible }) => (visible ? "initial" : "none")};
-    min-width: 40px;
     color: #c6c6c6;
-    margin-right: 8px;
 `;
 
 const Price = styled.span`
@@ -124,10 +134,12 @@ const Item = styled.li`
 `;
 
 const DeleteButton = styled.div`
-    width: ${({ visible }) => (visible ? "10px" : "0")};
-    margin-right: ${({ visible }) => (visible ? "50px" : "0")};
-    pointer-events: ${({ visible }) => (visible ? "inital" : "none")};
-    transition: width 0.15s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0eded;
+    border-radius: 4px;
+    margin-right: 5px;
 `;
 
 const ContentContainer = styled.div`
@@ -138,6 +150,9 @@ const ContentContainer = styled.div`
 
 const DeleteIcon = styled(AiOutlineDelete)`
     font-size: 20px;
-    opacity: ${({ visible }) => (visible ? "1" : "0")};
-    transition: opacity 0.15s ease-in-out;
+`;
+
+const AnimationContainer = styled.div`
+    min-width: 40px;
+    margin-right: 8px;
 `;
