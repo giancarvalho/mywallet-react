@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import { useState } from "react";
 import styled from "styled-components";
 import { AiOutlineDelete } from "react-icons/ai";
-import { CSSTransition } from "react-transition-group";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { v4 as generateKey } from "uuid";
 
 function Entry({ entryData, deleteEntry }) {
@@ -61,13 +61,22 @@ export default function Entries({ entriesData, deleteEntry }) {
     return (
         <EntriesContainer>
             <RecordList>
-                {entriesData.map((entryData, index) => (
-                    <Entry
-                        entryData={entryData}
-                        deleteEntry={deleteEntry}
-                        key={generateKey()}
-                    />
-                ))}
+                <TransitionGroup>
+                    {entriesData.map((entryData) => {
+                        return (
+                            <CSSTransition
+                                key={entryData.id}
+                                timeout={250}
+                                classNames="entry"
+                            >
+                                <Entry
+                                    entryData={entryData}
+                                    deleteEntry={deleteEntry}
+                                />
+                            </CSSTransition>
+                        );
+                    })}
+                </TransitionGroup>
             </RecordList>
             <BalanceContainer>
                 <h2>BALANCE</h2>

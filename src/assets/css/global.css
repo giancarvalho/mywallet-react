@@ -74,3 +74,18 @@ a {
 .date-enter-active {
     display: none;
 }
+
+.entry-enter {
+    opacity: 0;
+}
+.entry-enter-active {
+    opacity: 1;
+    transition: opacity 250ms ease-in;
+}
+.entry-exit {
+    opacity: 1;
+}
+.entry-exit-active {
+    opacity: 0;
+    transition: opacity 250ms ease-in;
+}
