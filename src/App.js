@@ -37,6 +37,7 @@ function App() {
                     <PrivateRoute
                         path={routes.mywallet}
                         element={MyWallet}
+                        sendAlert={sendAlert}
                         exact
                     />
                     <PrivateRoute

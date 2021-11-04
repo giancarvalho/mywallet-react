@@ -3,8 +3,9 @@ import { useState } from "react";
 import styled from "styled-components";
 import { AiOutlineDelete } from "react-icons/ai";
 import { CSSTransition } from "react-transition-group";
+import { v4 as generateKey } from "uuid";
 
-function Entry({ entryData }) {
+function Entry({ entryData, deleteEntry }) {
     const [showDeleteBtn, setShowDeleteBtn] = useState(false);
 
     return (
@@ -16,8 +17,11 @@ function Entry({ entryData }) {
                     classNames="delete"
                     unmountOnExit
                 >
-                    <DeleteButton visible={showDeleteBtn}>
-                        <DeleteIcon visible={showDeleteBtn} />
+                    <DeleteButton
+                        visible={showDeleteBtn}
+                        onClick={(e) => deleteEntry(e, entryData.id)}
+                    >
+                        <DeleteIcon />
                     </DeleteButton>
                 </CSSTransition>
                 <CSSTransition
@@ -40,7 +44,7 @@ function Entry({ entryData }) {
     );
 }
 
-export default function Entries({ entriesData }) {
+export default function Entries({ entriesData, deleteEntry }) {
     const balance = calculateBalance(entriesData);
     function calculateBalance() {
         const balance = entriesData.reduce((previousValue, currentValue) => {
@@ -58,7 +62,11 @@ export default function Entries({ entriesData }) {
         <EntriesContainer>
             <RecordList>
                 {entriesData.map((entryData, index) => (
-                    <Entry entryData={entryData} key={index} />
+                    <Entry
+                        entryData={entryData}
+                        deleteEntry={deleteEntry}
+                        key={generateKey()}
+                    />
                 ))}
             </RecordList>
             <BalanceContainer>

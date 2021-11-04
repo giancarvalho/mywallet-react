@@ -4,8 +4,9 @@ import styled from "styled-components";
 import UserContext from "../contexts/UserContext";
 import { getEntries } from "../services/apiRequests";
 import Entries from "./Entries";
+import { deleteEntry as submitDeletion } from "../services/apiRequests";
 
-export default function RecordsDisplay() {
+export default function RecordsDisplay({ sendAlert }) {
     const [entries, setEntries] = useState([]);
     const { user } = useContext(UserContext);
 
@@ -15,10 +16,22 @@ export default function RecordsDisplay() {
             .catch((error) => console.log(error.response?.data));
     }, [user]);
 
+    function deleteEntry(e, id) {
+        e.stopPropagation();
+
+        submitDeletion(id, user.token)
+            .then(() => setEntries(entries.filter((entry) => entry.id !== id)))
+            .catch(() =>
+                sendAlert({
+                    message: "It was not possible to delete this entry",
+                })
+            );
+    }
+
     return (
         <DisplayContainer>
             {entries.length > 0 ? (
-                <Entries entriesData={entries} />
+                <Entries entriesData={entries} deleteEntry={deleteEntry} />
             ) : (
                 <p>No income or expense entries yet</p>
             )}

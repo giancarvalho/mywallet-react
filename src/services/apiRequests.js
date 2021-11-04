@@ -24,4 +24,8 @@ function createEntry(entry, token) {
     return axiosBase.post("/entries", entry, createBearerAuth(token));
 }
 
-export { createUser, authenticateUser, getEntries, createEntry };
+function deleteEntry(id, token) {
+    return axiosBase.delete(`/entries?id=${id}`, createBearerAuth(token));
+}
+
+export { createUser, authenticateUser, getEntries, createEntry, deleteEntry };
