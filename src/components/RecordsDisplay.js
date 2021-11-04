@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { useContext } from "react/cjs/react.development";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import UserContext from "../contexts/UserContext";
 import { getEntries } from "../services/apiRequests";
