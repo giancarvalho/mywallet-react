@@ -130,10 +130,12 @@ const Price = styled.span`
 
 const Item = styled.li`
     display: flex;
+    min-height: 20px;
     margin-bottom: 5px;
 `;
 
 const DeleteButton = styled.div`
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
