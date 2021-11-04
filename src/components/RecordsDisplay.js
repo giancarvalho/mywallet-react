@@ -13,8 +13,14 @@ export default function RecordsDisplay({ sendAlert }) {
     useEffect(() => {
         getEntries(user.token)
             .then((response) => setEntries(response.data))
-            .catch((error) => console.log(error.response?.data));
-    }, [user]);
+            .catch(() =>
+                sendAlert({
+                    message:
+                        "Sorry, it wasn't possible to get your entries. Reload the page.",
+                    error: true,
+                })
+            );
+    }, [user, sendAlert]);
 
     function deleteEntry(e, id) {
         e.stopPropagation();

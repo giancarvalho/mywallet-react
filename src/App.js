@@ -20,7 +20,6 @@ function App() {
     });
 
     const sendAlert = useCallback((details) => {
-        console.log(details.position);
         setAlert({ status: true, ...details });
     }, []);
 

@@ -10,6 +10,9 @@
 //
 //
 // -- This is a parent command --
+
+import URL from "../../src/services/URL";
+
 Cypress.Commands.add("login", (email, password) => {
     cy.visit("http://localhost:3000/");
 
@@ -21,7 +24,7 @@ Cypress.Commands.add("login", (email, password) => {
 Cypress.Commands.add("signup", (user) => {
     cy.request({
         method: "POST",
-        url: "http://localhost:4000/sign-up",
+        url: `${URL}/sign-up`,
         body: {
             email: user.email,
             password: user.password,
@@ -33,7 +36,7 @@ Cypress.Commands.add("signup", (user) => {
 Cypress.Commands.add("getToken", (user) => {
     cy.request({
         method: "POST",
-        url: "http://localhost:4000/sign-in",
+        url: `${URL}/sign-in`,
         body: user,
     });
 });
@@ -42,7 +45,7 @@ Cypress.Commands.add("createEntry", (user, entryData) => {
         const token = response.body.token;
         cy.request({
             method: "POST",
-            url: "http://localhost:4000/entries",
+            url: `${URL}/entries`,
             body: entryData,
             headers: {
                 Authorization: `Bearer ${token}`,
