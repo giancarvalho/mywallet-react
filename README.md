@@ -25,8 +25,9 @@ This is a full stack project. You are in the front-end repository, you can find 
 
 1) Clone this repository
 2) Open terminal in root folder
-3) Optionally, run ```npm test``` to run integration tests
-4) Run ```npm start```
+3) Run ```npm install```
+4) Optionally, run ```npm test``` to run integration tests
+5) Run ```npm start```
 
 ___
  This is the 14th project of Driven's Full-stack Web Dev Course.
